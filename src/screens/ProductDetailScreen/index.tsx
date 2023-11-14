@@ -63,9 +63,8 @@ const ProductActions = ({onEdit, onDelete, product}: ProductActionsProps) => {
         isLoading={isLoading}
       />
       <View style={styles.buttonContainer}>
-        <View style={{flex: 1}}>
-          <Button title="Eliminar" onPress={openModal} variant="error" />
-        </View>
+        <Button title="Editar" onPress={onEdit} variant="secondary" />
+        <Button title="Eliminar" onPress={openModal} variant="error" />
       </View>
     </>
   );
@@ -91,6 +90,10 @@ export const ProductDetailScreen = ({
       );
       throw error;
     }
+  };
+
+  const onEdit = () => {
+    navigation.navigate('ProductAddScreen', {product});
   };
 
   return (
@@ -125,7 +128,7 @@ export const ProductDetailScreen = ({
           />
         </View>
       </View>
-      <ProductActions product={product} onEdit={() => {}} onDelete={onDelete} />
+      <ProductActions product={product} onEdit={onEdit} onDelete={onDelete} />
     </Container>
   );
 };
@@ -173,8 +176,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
+    gap: 16,
   },
 });

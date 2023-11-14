@@ -1,12 +1,19 @@
 import React, {useState} from 'react';
-import {StackNavigationProps, convertToISO8601} from '../../utils/commons';
+import {
+  StackNavigationProps,
+  convertToISO8601,
+  formatDateToDDMMYYYY,
+} from '../../utils/commons';
 import {Formik} from 'formik';
 import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
 import * as yup from 'yup';
 import {Button} from '../../components/Button';
 import {Container} from '../../components/Container';
 import {TextField} from '../../components/TextField';
-import {createFinancialProduct} from '../../services/productService';
+import {
+  createFinancialProduct,
+  updateFinancialProduct,
+} from '../../services/productService';
 
 const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/\d{4}$/;
 
@@ -27,8 +34,11 @@ const validationSchema = yup.object({
 
 export const ProductAddScreen = ({
   navigation,
+  route,
 }: StackNavigationProps<'ProductAddScreen'>) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const {product} = route.params ?? {};
 
   const initialValues = {
     id: '',
@@ -48,9 +58,15 @@ export const ProductAddScreen = ({
         date_revision: convertToISO8601(values.date_revision),
       };
 
-      const createdProduct = await createFinancialProduct(productData);
-      console.log('Producto creado con éxito:', createdProduct);
-      navigation.canGoBack() && navigation.goBack();
+      if (product) {
+        const updateProduct = await updateFinancialProduct(productData);
+        console.log('Producto actualizado con éxito:', updateProduct);
+      } else {
+        const createdProduct = await createFinancialProduct(productData);
+        console.log('Producto creado con éxito:', createdProduct);
+      }
+
+      navigation.navigate('ProductListScreen');
     } catch (error) {
       console.error('Error al crear el producto:', error);
     } finally {
@@ -60,7 +76,15 @@ export const ProductAddScreen = ({
 
   return (
     <Formik<CreditCard>
-      initialValues={initialValues}
+      initialValues={
+        product
+          ? {
+              ...product,
+              date_release: formatDateToDDMMYYYY(product.date_release),
+              date_revision: formatDateToDDMMYYYY(product.date_revision),
+            }
+          : initialValues
+      }
       validationSchema={validationSchema}
       onSubmit={onSubmit}>
       {({
@@ -86,6 +110,7 @@ export const ProductAddScreen = ({
                 maxLength={10}
                 error={errors.id}
                 touched={touched.id}
+                editable={!product}
               />
 
               <TextField

@@ -26,6 +26,19 @@ const createFinancialProduct = async (newProductData: CreditCard) => {
   }
 };
 
+const updateFinancialProduct = async (newProductData: CreditCard) => {
+  try {
+    const response = await api.put('/bp/products', newProductData);
+    return response.data;
+  } catch (error) {
+    console.error(
+      'Error al crear un producto financiero:',
+      JSON.stringify(error),
+    );
+    throw error;
+  }
+};
+
 const deleteFinancialProduct = async (productId: string) => {
   try {
     const response = await api.delete(`/bp/products?id=${productId}`);
@@ -39,4 +52,9 @@ const deleteFinancialProduct = async (productId: string) => {
   }
 };
 
-export {getFinancialProducts, createFinancialProduct, deleteFinancialProduct};
+export {
+  getFinancialProducts,
+  createFinancialProduct,
+  updateFinancialProduct,
+  deleteFinancialProduct,
+};

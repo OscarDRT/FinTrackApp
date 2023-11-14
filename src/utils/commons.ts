@@ -18,6 +18,15 @@ export const convertToISO8601 = (dateString: string) => {
   return date.toISOString();
 };
 
+export const formatDateToDDMMYYYY = (dateString: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  };
+  return new Intl.DateTimeFormat('es-ES', options).format(new Date(dateString));
+};
+
 export interface StackNavigationProps<
   RouteName extends keyof RootStackParamList,
 > {

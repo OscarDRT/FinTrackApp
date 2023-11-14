@@ -1,5 +1,5 @@
 type RootStackParamList = {
   ProductListScreen: undefined;
   ProductDetailScreen: {product: CreditCard};
-  ProductAddScreen: undefined;
+  ProductAddScreen: {product?: CreditCard};
 };

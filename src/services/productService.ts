@@ -13,4 +13,17 @@ const getFinancialProducts = async () => {
   }
 };
 
-export {getFinancialProducts};
+const createFinancialProduct = async (newProductData: CreditCard) => {
+  try {
+    const response = await api.post('/bp/products', newProductData);
+    return response.data;
+  } catch (error) {
+    console.error(
+      'Error al crear un producto financiero:',
+      JSON.stringify(error),
+    );
+    throw error;
+  }
+};
+
+export {getFinancialProducts, createFinancialProduct};

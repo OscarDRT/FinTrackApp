@@ -10,6 +10,14 @@ export const formatDate = (dateString: string) => {
   return new Intl.DateTimeFormat('es-ES', options).format(new Date(dateString));
 };
 
+export const convertToISO8601 = (dateString: string) => {
+  const [day, month, year] = dateString
+    .split('/')
+    .map(part => parseInt(part, 10));
+  const date = new Date(year, month - 1, day);
+  return date.toISOString();
+};
+
 export interface StackNavigationProps<
   RouteName extends keyof RootStackParamList,
 > {

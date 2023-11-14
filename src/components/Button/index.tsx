@@ -8,7 +8,7 @@ import {
   TouchableOpacityProps,
 } from 'react-native';
 
-type ButtonVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'error';
+type ButtonVariant = 'primary' | 'secondary' | 'error';
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
@@ -29,9 +29,7 @@ export const Button = ({
   const variantStyles = {
     primary: {backgroundColor: '#ffc107', textColor: '#000000'},
     secondary: {backgroundColor: '#e9edf2', textColor: '#000000'},
-    success: {backgroundColor: '#28a745', textColor: '#ffffff'},
-    warning: {backgroundColor: '#ffc107', textColor: '#000000'},
-    error: {backgroundColor: '#dc3545', textColor: '#ffffff'},
+    error: {backgroundColor: '#d50606', textColor: '#ffffff'},
   };
 
   const currentVariant = variantStyles[variant];

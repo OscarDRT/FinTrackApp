@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
-  Button,
   StyleProp,
   TextStyle,
 } from 'react-native';
 import {StackNavigationProps, formatDate} from '../../utils/commons';
 import {Container} from '../../components/Container';
+import {Button} from '../../components/Button';
+import {CustomModal} from '../../components/Modal';
+import {deleteFinancialProduct} from '../../services/productService';
 
 interface DetailRowProps {
   label: string;
@@ -25,21 +27,71 @@ const DetailRow = ({label, content, contentStyle}: DetailRowProps) => (
 );
 
 interface ProductActionsProps {
+  product: CreditCard;
   onEdit: () => void;
   onDelete: () => void;
 }
 
-const ProductActions = ({onEdit, onDelete}: ProductActionsProps) => (
-  <View style={styles.buttonContainer}>
-    <Button title="Editar" color="#FFA500" onPress={onEdit} />
-    <Button title="Eliminar" color="#FF0000" onPress={onDelete} />
-  </View>
-);
+const ProductActions = ({onEdit, onDelete, product}: ProductActionsProps) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false); // New loading state
+
+  const openModal = () => setIsVisible(true);
+  const closeModal = () => setIsVisible(false);
+
+  const handleDelete = () => {
+    setIsLoading(true);
+    try {
+      onDelete();
+      closeModal();
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+    setIsLoading(false);
+  };
+
+  return (
+    <>
+      <CustomModal
+        isVisible={isVisible}
+        closeModal={closeModal}
+        description={`¿Estás seguro de eliminar el producto ${product.name}?`}
+        primaryButtonTitle="Confirmar"
+        onPrimaryPress={handleDelete}
+        secondaryButtonTitle="Cancelar"
+        onSecondaryPress={closeModal}
+        isLoading={isLoading}
+      />
+      <View style={styles.buttonContainer}>
+        <View style={{flex: 1}}>
+          <Button title="Eliminar" onPress={openModal} variant="error" />
+        </View>
+      </View>
+    </>
+  );
+};
 
 export const ProductDetailScreen = ({
   route,
+  navigation,
 }: StackNavigationProps<'ProductDetailScreen'>) => {
   const {product} = route.params;
+
+  const onDelete = async () => {
+    const productId = product.id;
+    try {
+      const result = await deleteFinancialProduct(productId);
+      console.log(`Producto financiero eliminado con éxito: ${productId}`);
+      navigation.canGoBack() && navigation.goBack();
+      return result;
+    } catch (error) {
+      console.error(
+        `Error al eliminar un producto financiero con ID: ${productId}`,
+        JSON.stringify(error),
+      );
+      throw error;
+    }
+  };
 
   return (
     <Container margins style={{justifyContent: 'space-between'}}>
@@ -73,7 +125,7 @@ export const ProductDetailScreen = ({
           />
         </View>
       </View>
-      <ProductActions onEdit={() => {}} onDelete={() => {}} />
+      <ProductActions product={product} onEdit={() => {}} onDelete={onDelete} />
     </Container>
   );
 };

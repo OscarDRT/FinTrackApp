@@ -93,7 +93,8 @@ Functionality to edit an existing product.
 
 Allows the deletion of a product through a modal.
 
-![F6](images/F1-F5-F6.png)
+![F6-1](images/F1-F5-F6.png)
+![F6-2](images/F6.png)
 
 ## Contribution
 

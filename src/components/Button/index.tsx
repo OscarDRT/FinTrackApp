@@ -16,6 +16,7 @@ interface ButtonProps extends TouchableOpacityProps {
   style?: ViewStyle;
   loading?: boolean;
   disabled?: boolean;
+  testID?: string;
 }
 
 export const Button = ({
@@ -24,6 +25,7 @@ export const Button = ({
   style,
   loading,
   disabled,
+  testID,
   ...props
 }: ButtonProps) => {
   const variantStyles = {
@@ -51,12 +53,17 @@ export const Button = ({
   };
 
   return (
-    <TouchableOpacity disabled={disabled} style={buttonStyle} {...props}>
+    <TouchableOpacity
+      disabled={disabled}
+      style={[buttonStyle, {opacity: disabled ? 0.7 : 1}]}
+      testID={testID}
+      {...props}>
       {loading ? (
         <ActivityIndicator
           size="small"
           color={currentVariant.textColor}
           style={{marginRight: 10}}
+          testID="activity-indicator"
         />
       ) : (
         <Text style={textStyle}>{title}</Text>

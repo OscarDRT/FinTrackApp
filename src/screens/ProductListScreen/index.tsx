@@ -98,7 +98,7 @@ export const ProductListScreen = ({
   const {products} = useProductList();
 
   const onNavigate = useCallback(() => {
-    navigation.navigate('ProductAddScreen');
+    navigation.navigate('ProductAddScreen', {});
   }, [navigation]);
 
   return (

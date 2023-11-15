@@ -16,6 +16,7 @@ export const Container: React.FC<MainContainerProps> = ({
 
   return (
     <View
+      testID="container"
       style={[
         {
           flex: 1,

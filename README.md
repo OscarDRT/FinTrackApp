@@ -61,39 +61,39 @@ Each subdirectory serves a specific purpose, ensuring a modular and organized ap
 
 Displays a list of financial products.
 
--   ![F1-1](images/F1-F2-F3-F4.png)
--   ![F1-2](images/F1-F5-F6.png)
+![F1-1](images/F1-F2-F3-F4.png)
+![F1-2](images/F1-F5-F6.png)
 
 ### F2. Searching for Financial Products
 
 Enables the search for financial products using a text field.
 
--   ![F2](images/F1-F2-F3-F4.png)
+![F2](images/F1-F2-F3-F4.png)
 
 ### F3. Number of Records
 
 Shows a list of obtained records.
 
--   ![F3](images/F1-F2-F3-F4.png)
+![F3](images/F1-F2-F3-F4.png)
 
 ### F4. Add Product
 
 Form to add new financial products.
 
--   ![F4-1](images/F1-F2-F3-F4.png)
--   ![F4-2](images/F4.png)
+![F4-1](images/F1-F2-F3-F4.png)
+![F4-2](images/F4.png)
 
 ### F5. Edit Product
 
 Functionality to edit an existing product.
 
--   ![F5](images/F1-F5-F6.png)
+![F5](images/F1-F5-F6.png)
 
 ### F6. Delete Product
 
 Allows the deletion of a product through a modal.
 
--   ![F6](images/F1-F5-F6.png)
+![F6](images/F1-F5-F6.png)
 
 ## Contribution
 
@@ -101,5 +101,6 @@ Contributions are welcome. Please read the contribution guidelines on how to do 
 
 ## Authors and Contact
 
--   [Oscar Riaño Tapias]
--   Contact: [oscardrtdev@gmail.com]
+-   Oscar Riaño Tapias
+-   Contact: oscardrtdev@gmail.com
+-   [LinkedIn](https://www.linkedin.com/in/oscardrt/)
